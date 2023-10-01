@@ -1,0 +1,42 @@
+[gd_scene load_steps=3 format=3 uid="uid://iwlfjqwfe413"]
+
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_054tx"]
+[ext_resource type="FontFile" uid="uid://dmjvfmyexs3oc" path="res://resources/fonts/VT323-Regular.ttf" id="2_bkq6c"]
+
+[node name="HUD" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_054tx")
+
+[node name="RetryButton" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(100, 0)
+offset_left = 262.0
+offset_top = 118.0
+offset_right = 362.0
+offset_bottom = 149.0
+theme_override_fonts/font = ExtResource("2_bkq6c")
+text = "Retry"
+
+[node name="MenuButton" type="Button" parent="."]
+visible = false
+custom_minimum_size = Vector2(100, 0)
+offset_left = 261.0
+offset_top = 157.0
+offset_right = 361.0
+offset_bottom = 188.0
+theme_override_fonts/font = ExtResource("2_bkq6c")
+text = "Menu"
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = 265.0
+offset_top = 117.0
+offset_right = 361.0
+offset_bottom = 150.0
+theme_override_fonts/font = ExtResource("2_bkq6c")
+theme_override_font_sizes/font_size = 30
+text = "You Won!
+"
+
+[connection signal="pressed" from="RetryButton" to="." method="_on_retry_button_pressed"]
+[connection signal="pressed" from="MenuButton" to="." method="_on_menu_button_pressed"]

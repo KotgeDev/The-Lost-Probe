@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfl78404upxpo"]
+
+[ext_resource type="Material" uid="uid://cimhmqlj16qqv" path="res://shaders/smooth_pixel.tres" id="1_6n6i3"]
+[ext_resource type="Texture2D" uid="uid://b6o75bbqhjbjb" path="res://assets/levels/portal.png" id="2_jpcxm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ft0fe"]
+size = Vector2(20, 80)
+
+[node name="Objective" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(42, 0)
+shape = SubResource("RectangleShape2D_ft0fe")
+
+[node name="Portal" type="Sprite2D" parent="."]
+material = ExtResource("1_6n6i3")
+texture = ExtResource("2_jpcxm")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(32, -40, 8, -40, 8, -32, 9, -32, 9, -30, 8, -30, 8, -26, 10, -26, 10, -25, 11, -25, 11, -24, 18, -24, 18, -25, 20, -25, 20, -24, 28, -24, 28, -25, 29, -25, 29, -24, 32, -24, 52, -24, 52, 24, 21, 24, 21, 25, 19, 25, 19, 24, 11, 24, 11, 25, 10, 25, 10, 26, 8, 26, 8, 30, 9, 30, 9, 32, 8, 32, 8, 40, 32, 40, 69, 40, 70, -40)

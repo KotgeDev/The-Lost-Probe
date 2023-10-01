@@ -1,0 +1,93 @@
+[gd_scene load_steps=10 format=3 uid="uid://bfo7aur6kung4"]
+
+[ext_resource type="Script" path="res://scripts/levels/electricity.gd" id="1_opkg2"]
+[ext_resource type="Material" uid="uid://cimhmqlj16qqv" path="res://shaders/smooth_pixel.tres" id="2_ra1os"]
+[ext_resource type="Texture2D" uid="uid://byg6gcd6wtbod" path="res://assets/levels/electricity_sheet.png" id="3_jti33"]
+[ext_resource type="PackedScene" uid="uid://ch511qqd2xelu" path="res://scenes/levels/hitbox.tscn" id="4_cadvc"]
+
+[sub_resource type="Animation" id="Animation_1sfwu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_fe80x"]
+resource_name = "active"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_1ulbb"]
+resource_name = "ready"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0saso"]
+_data = {
+"RESET": SubResource("Animation_1sfwu"),
+"active": SubResource("Animation_fe80x"),
+"ready": SubResource("Animation_1ulbb")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ytup"]
+radius = 5.0
+height = 42.0
+
+[node name="Electricity" type="Node2D"]
+z_index = 1
+script = ExtResource("1_opkg2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = ExtResource("2_ra1os")
+texture = ExtResource("3_jti33")
+hframes = 7
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0saso")
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="Hitbox" parent="." instance=ExtResource("4_cadvc")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(48, 40)
+shape = SubResource("CapsuleShape2D_4ytup")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

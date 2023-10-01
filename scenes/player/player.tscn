@@ -1,0 +1,180 @@
+[gd_scene load_steps=16 format=3 uid="uid://kynjy72jvfq6"]
+
+[ext_resource type="Script" path="res://scripts/player/player.gd" id="1_6aqxi"]
+[ext_resource type="Texture2D" uid="uid://b5kuti71sh7fr" path="res://assets/player/player.png" id="1_8ejl3"]
+[ext_resource type="Material" uid="uid://cimhmqlj16qqv" path="res://shaders/smooth_pixel.tres" id="2_1ywp7"]
+[ext_resource type="Texture2D" uid="uid://yinfa8fwmfle" path="res://assets/player/main_thruster_fire.png" id="4_l7kn2"]
+[ext_resource type="Texture2D" uid="uid://brnhvdu2c5adr" path="res://assets/player/side_thrusters_fire.png" id="5_cehwy"]
+[ext_resource type="PackedScene" uid="uid://b31v7aha0dotq" path="res://scenes/player/hurtbox.tscn" id="6_1mhvl"]
+
+[sub_resource type="Animation" id="Animation_r2o5r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainThrusterFire:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_pdj2b"]
+resource_name = "main_thruster_fire"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainThrusterFire:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pb8br"]
+_data = {
+"RESET": SubResource("Animation_r2o5r"),
+"main_thruster_fire": SubResource("Animation_pdj2b")
+}
+
+[sub_resource type="Animation" id="Animation_aqneg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopThrusterFire:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_wcyny"]
+resource_name = "top_thruster_fire"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TopThrusterFire:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r73uk"]
+_data = {
+"RESET": SubResource("Animation_aqneg"),
+"top_thruster_fire": SubResource("Animation_wcyny")
+}
+
+[sub_resource type="Animation" id="Animation_0sdjt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BottomThrusterFire:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_jcio3"]
+resource_name = "botton_thruster_fire"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BottomThrusterFire:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jb0m2"]
+_data = {
+"RESET": SubResource("Animation_0sdjt"),
+"bottom_thruster_fire": SubResource("Animation_jcio3")
+}
+
+[node name="Player" type="RigidBody2D"]
+collision_layer = 2
+collision_mask = 13
+center_of_mass_mode = 1
+gravity_scale = 0.0
+script = ExtResource("1_6aqxi")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+material = ExtResource("2_1ywp7")
+position = Vector2(11, 16)
+texture = ExtResource("1_8ejl3")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-5, 0)
+polygon = PackedVector2Array(-9, -15, -9, -12, -8, -12, -8, -13, -7, -13, -7, -12, -6, -12, -6, -11, -5, -11, -5, -10, -4, -10, -4, -9, -3, -9, -3, -8, -2, -8, -2, -7, -1, -7, -1, -6, -2, -6, -2, -5, -1, -5, -1, -4, -2, -4, -2, -2, -3, -2, -3, -3, -4, -3, -4, 2, -3, 2, -3, 1, -2, 1, -2, 3, -1, 3, -1, 4, -2, 4, -2, 5, -1, 5, -1, 7, -2, 7, -2, 8, -3, 8, -3, 10, -4, 10, -4, 12, -5, 12, -5, 13, -6, 13, -6, 15, -7, 15, -7, 17, -6, 17, -6, 16, -5, 16, -5, 14, -4, 14, -4, 13, -3, 13, -3, 11, -2, 11, -2, 9, -1, 9, -1, 8, 0, 8, 0, 5, 1, 5, 1, 7, 3, 7, 3, 6, 4, 6, 4, 8, 5, 8, 5, 9, 6, 9, 6, 10, 7, 10, 7, 9, 9, 9, 9, 10, 11, 10, 11, 11, 13, 11, 13, 12, 15, 12, 15, 13, 17, 13, 17, 14, 19, 14, 19, 15, 21, 15, 21, 16, 23, 16, 23, 17, 24, 17, 24, 18, 26, 18, 26, 19, 28, 19, 28, 20, 30, 20, 30, 21, 32, 21, 32, 22, 34, 22, 34, 23, 36, 23, 36, 24, 38, 24, 38, 25, 40, 25, 40, 24, 39, 24, 39, 23, 37, 23, 37, 22, 35, 22, 35, 21, 33, 21, 33, 20, 31, 20, 31, 19, 29, 19, 29, 18, 27, 18, 27, 17, 26, 17, 26, 15, 25, 15, 25, 16, 24, 16, 24, 15, 22, 15, 22, 14, 20, 14, 20, 13, 18, 13, 18, 12, 16, 12, 16, 11, 14, 11, 14, 10, 12, 10, 12, 9, 10, 9, 10, 8, 9, 8, 9, 5, 10, 5, 10, -6, 9, -6, 9, -9, 8, -9, 8, -10, 7, -10, 7, -11, 6, -11, 6, -10, 5, -10, 5, -9, 4, -9, 4, -7, 3, -7, 3, -8, 1, -8, 1, -7, 0, -7, 0, -8, -1, -8, -1, -9, -2, -9, -2, -10, -3, -10, -3, -11, -4, -11, -4, -12, -5, -12, -5, -13, -6, -13, -6, -14, -8, -14, -8, -15)
+
+[node name="MainThrusterFire" type="Sprite2D" parent="."]
+material = ExtResource("2_1ywp7")
+position = Vector2(11, 16)
+texture = ExtResource("4_l7kn2")
+hframes = 4
+
+[node name="MainThrusterAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pb8br")
+}
+
+[node name="TopThrusterFire" type="Sprite2D" parent="."]
+material = ExtResource("2_1ywp7")
+position = Vector2(11, 16)
+texture = ExtResource("5_cehwy")
+hframes = 4
+
+[node name="TopThrusterAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_r73uk")
+}
+
+[node name="BottomThrusterFire" type="Sprite2D" parent="."]
+material = ExtResource("2_1ywp7")
+position = Vector2(-18, -17)
+rotation = 3.14159
+texture = ExtResource("5_cehwy")
+hframes = 4
+
+[node name="BottomThrusterAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jb0m2")
+}
+
+[node name="Hurtbox" parent="." instance=ExtResource("6_1mhvl")]
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="Hurtbox"]
+position = Vector2(-5, 0)
+polygon = PackedVector2Array(-9, -15, -9, -12, -8, -12, -8, -13, -7, -13, -7, -12, -6, -12, -6, -11, -5, -11, -5, -10, -4, -10, -4, -9, -3, -9, -3, -8, -2, -8, -2, -7, -1, -7, -1, -6, -2, -6, -2, -5, -1, -5, -1, -4, -2, -4, -2, -2, -3, -2, -3, -3, -4, -3, -4, 2, -3, 2, -3, 1, -2, 1, -2, 3, -1, 3, -1, 4, -2, 4, -2, 5, -1, 5, -1, 7, -2, 7, -2, 8, -3, 8, -3, 10, -4, 10, -4, 12, -5, 12, -5, 13, -6, 13, -6, 15, -7, 15, -7, 17, -6, 17, -6, 16, -5, 16, -5, 14, -4, 14, -4, 13, -3, 13, -3, 11, -2, 11, -2, 9, -1, 9, -1, 8, 0, 8, 0, 5, 1, 5, 1, 7, 3, 7, 3, 6, 4, 6, 4, 8, 5, 8, 5, 9, 6, 9, 6, 10, 7, 10, 7, 9, 9, 9, 9, 10, 11, 10, 11, 11, 13, 11, 13, 12, 15, 12, 15, 13, 17, 13, 17, 14, 19, 14, 19, 15, 21, 15, 21, 16, 23, 16, 23, 17, 24, 17, 24, 18, 26, 18, 26, 19, 28, 19, 28, 20, 30, 20, 30, 21, 32, 21, 32, 22, 34, 22, 34, 23, 36, 23, 36, 24, 38, 24, 38, 25, 40, 25, 40, 24, 39, 24, 39, 23, 37, 23, 37, 22, 35, 22, 35, 21, 33, 21, 33, 20, 31, 20, 31, 19, 29, 19, 29, 18, 27, 18, 27, 17, 26, 17, 26, 15, 25, 15, 25, 16, 24, 16, 24, 15, 22, 15, 22, 14, 20, 14, 20, 13, 18, 13, 18, 12, 16, 12, 16, 11, 14, 11, 14, 10, 12, 10, 12, 9, 10, 9, 10, 8, 9, 8, 9, 5, 10, 5, 10, -6, 9, -6, 9, -9, 8, -9, 8, -10, 7, -10, 7, -11, 6, -11, 6, -10, 5, -10, 5, -9, 4, -9, 4, -7, 3, -7, 3, -8, 1, -8, 1, -7, 0, -7, 0, -8, -1, -8, -1, -9, -2, -9, -2, -10, -3, -10, -3, -11, -4, -11, -4, -12, -5, -12, -5, -13, -6, -13, -6, -14, -8, -14, -8, -15)
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
